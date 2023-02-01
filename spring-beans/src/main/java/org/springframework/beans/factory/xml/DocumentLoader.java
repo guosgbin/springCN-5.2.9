@@ -42,6 +42,17 @@ public interface DocumentLoader {
 	 * @return the loaded {@link Document document}
 	 * @throws Exception if an error occurs
 	 */
+	/*
+	 * 将给定的 InputSource 加载成为一个 Documen 对象
+	 *
+	 * @param inputSource
+	 * @param entityResolver
+	 * @param errorHandler		加载错误时的处理器
+	 * @param validationMode	校验模式，DTD 或者 XSD
+	 * @param namespaceAware
+	 * @return
+	 * @throws Exception
+	 */
 	Document loadDocument(
 			InputSource inputSource, EntityResolver entityResolver,
 			ErrorHandler errorHandler, int validationMode, boolean namespaceAware)

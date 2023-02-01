@@ -99,6 +99,7 @@ public class XmlValidationModeDetector {
 				if (this.inComment || !StringUtils.hasText(content)) {
 					continue;
 				}
+				// 判断是否是 DTD
 				if (hasDoctype(content)) {
 					isDtdValidated = true;
 					break;
@@ -108,6 +109,7 @@ public class XmlValidationModeDetector {
 					break;
 				}
 			}
+			// 返回 DTD 或者 XSD
 			return (isDtdValidated ? VALIDATION_DTD : VALIDATION_XSD);
 		}
 		catch (CharConversionException ex) {

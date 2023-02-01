@@ -77,6 +77,10 @@ public class DelegatingEntityResolver implements EntityResolver {
 	}
 
 
+	/*
+	 * 根据不同的 systemId 使用不同的解析器去解析 Entity
+	 * DTD XSD
+	 */
 	@Override
 	@Nullable
 	public InputSource resolveEntity(@Nullable String publicId, @Nullable String systemId)
