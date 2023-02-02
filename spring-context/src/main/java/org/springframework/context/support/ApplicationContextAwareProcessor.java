@@ -59,6 +59,16 @@ import org.springframework.util.StringValueResolver;
  * @see org.springframework.context.ApplicationContextAware
  * @see org.springframework.context.support.AbstractApplicationContext#refresh()
  */
+
+/*
+ * 在初始化下面类型的实例的时候，调用对应的方法，给他们设置一些上下文对象
+ *  @see org.springframework.context.EnvironmentAware
+ *  @see org.springframework.context.EmbeddedValueResolverAware
+ *  @see org.springframework.context.ResourceLoaderAware
+ *  @see org.springframework.context.ApplicationEventPublisherAware
+ *  @see org.springframework.context.MessageSourceAware
+ *  @see org.springframework.context.ApplicationContextAware
+ */
 class ApplicationContextAwareProcessor implements BeanPostProcessor {
 
 	private final ConfigurableApplicationContext applicationContext;
@@ -75,14 +85,22 @@ class ApplicationContextAwareProcessor implements BeanPostProcessor {
 	}
 
 
+	/**
+	 * 初始化实例前执行的回调方法
+	 *
+	 * 这里主要是插入
+	 */
 	@Override
 	@Nullable
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+		// 不是下面的类型的 bean，直接返回
 		if (!(bean instanceof EnvironmentAware || bean instanceof EmbeddedValueResolverAware ||
 				bean instanceof ResourceLoaderAware || bean instanceof ApplicationEventPublisherAware ||
 				bean instanceof MessageSourceAware || bean instanceof ApplicationContextAware)){
 			return bean;
 		}
+
+		// 走到这里说明是上面那些类型的 bean，如 ApplicationContextAware
 
 		AccessControlContext acc = null;
 
@@ -103,6 +121,11 @@ class ApplicationContextAwareProcessor implements BeanPostProcessor {
 		return bean;
 	}
 
+	/**
+	 * 调用实例的对应的 set 方法，将当前容器的一些上下文对象传给实例
+	 *
+	 * 例如给 ApplicationContextAware 的实现类，传入 applicationContext 对象
+	 */
 	private void invokeAwareInterfaces(Object bean) {
 		if (bean instanceof EnvironmentAware) {
 			((EnvironmentAware) bean).setEnvironment(this.applicationContext.getEnvironment());
