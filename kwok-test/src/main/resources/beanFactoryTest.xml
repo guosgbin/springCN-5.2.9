@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans default-init-method="init01"
+		xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="userService" class="cn.guosgbin.UserServiceImpl"/>
-
-	<bean id="subChannel" class="cn.guosgbin.ServerStarter"
-		  factory-method="getConnectorLocalHost"/>
-
+	<bean id="userService" class="cn.guosgbin.resolve.xml.UserServiceImpl"/>
 </beans>

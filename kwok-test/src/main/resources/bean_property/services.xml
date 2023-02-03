@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--
+		bean 的 property 标签就相当于给 userService 配置它的属性，
+		当然是需要提供各个属性的 setter 方法的
+		1、ref 是引用另一个对象
+		2、value 是配置基本类型和 String
+	 -->
+	<bean id="userService" class="cn.guosgbin.bean_property.UserServiceImpl">
+		<property name="userDao" ref="userDao"/>
+		<property name="userAccountDao" ref="userAccountDao"/>
+		<property name="name" value="韩梅梅梅梅"/>
+	</bean>
+
+</beans>
